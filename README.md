@@ -1,2 +1,2 @@
 # ComputerSupportSTU
-#This is a repository for Computer Support class, 2025
+This is a repository for Computer Support class, 2025
