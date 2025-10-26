@@ -1,0 +1,144 @@
+---
+title: "Task1 Exploring data types in R"
+author: "Simona Slámová"
+date: "10/01/2024"
+format:
+  html:
+    embed-resources: true
+editor: source
+---
+
+## Question 1 title
+
+Question description
+Barcelona
+
+```{r}
+# code for solving task
+
+#numeric
+population<-1600000
+size_city<-101.9
+imigration<-400000
+tourists<-30000000
+
+# Integer values
+number_of_parks <- 68
+number_of_schools <- 320
+number_of_museums <- 55
+
+# Logical values
+has_beach <- TRUE
+is_capital <- FALSE
+
+# Character values
+city_name <- "Barcelona"
+region <- "Catalonia"
+category <- "City"
+
+# Print description
+cat(city_name, "is a", category, "in", region,
+    "with a population of", population, "and an area of", size_city, "km².\n")
+
+### 1.2. Vectors ----
+
+# Numeric vector (combine numeric + integer)
+numeric_vector <- c(population, size_city, imigration, tourists,
+                    number_of_parks, number_of_schools, number_of_museums)
+
+# Sequence vector (from 20 to 100 by 10)
+sequence_vector <- seq(20, 100, by = 10)
+
+# Logical vector of 10 random TRUE/FALSE values
+logical_vector <- sample(c(TRUE, FALSE), size = 10, replace = TRUE)
+
+# Print them
+print(numeric_vector)
+print(sequence_vector)
+print(logical_vector)
+
+### 1.3. Matrix ----
+
+# Create 3x3 matrix with random numbers between -50 and 50
+city_matrix <- matrix(sample(-50:50, 9, replace = TRUE), nrow = 3, ncol = 3)
+
+# Name rows and columns
+rownames(city_matrix) <- c("Population", "Tourism", "Economy")
+colnames(city_matrix) <- c("Growth", "Change", "Forecast")
+
+# Print matrix
+print(city_matrix)
+
+# Row and column means
+row_means <- rowMeans(city_matrix)
+col_means <- colMeans(city_matrix)
+
+print(row_means)
+print(col_means)
+
+### 1.4. List ----
+
+# Combine all objects into one list
+city_list <- list(
+  numeric_values = list(population, size_city, imigration, tourists),
+  integer_values = list(number_of_parks, number_of_schools, number_of_museums),
+  logical_values = list(has_beach, is_capital),
+  character_values = list(city_name, region, category),
+  vectors = list(numeric_vector, sequence_vector, logical_vector),
+  matrix = city_matrix,
+  description = "Barcelona is a vibrant coastal city in Catalonia, famous for its architecture, beaches, and culture."
+)
+
+# Print list
+print(city_list)
+
+### 1.5. Factor ----
+
+# Create factor with 5 observations (e.g., air quality level)
+air_quality <- factor(c("high", "medium", "low", "medium", "high"),
+                      levels = c("low", "medium", "high"))
+
+# Table of frequencies
+table(air_quality)
+
+### 1.6. Data Frame ----
+
+# Create data frame (5 observations)
+city_data <- data.frame(
+  name = c("Barcelona", "Madrid", "Valencia", "Seville", "Bilbao"),
+  population = c(1600000, 3300000, 800000, 700000, 350000),
+  has_beach = c(TRUE, FALSE, TRUE, FALSE, FALSE),
+  category = c("Coastal", "Capital", "Coastal", "Historic", "Industrial")
+)
+
+# Rename columns
+names(city_data) <- c("CityName", "Population", "HasBeach", "Category")
+
+# Display structure and summary
+str(city_data)
+summary(city_data)
+
+# Add a new column (population ratio compared to Barcelona)
+city_data$PopulationRatioToBarcelona <- city_data$Population / 1600000
+
+# View final data frame
+print(city_data)
+
+
+
+
+
+
+
+
+```
+
+
+## Question N title
+
+Question description
+
+```{r}
+# code for solving task
+```
+
