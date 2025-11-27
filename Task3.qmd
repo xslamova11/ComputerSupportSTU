@@ -1,0 +1,105 @@
+---
+title: "Task 3 – User Car Prices Barcelona 2022"
+author: "Simona Slámová"
+date: "11/27/2025"
+format: html
+---
+
+## 1. Load Libraries and Data
+
+```{r}
+library(dplyr)
+library(readr)
+
+
+# Load dataset
+cars_data <- read_csv("used_cars_data.csv")
+```
+
+------------------------------------------------------------------------
+
+## 2. First Inspection
+
+### Structure
+
+```{r}
+glimpse(cars_data)
+```
+
+### First 6 rows
+
+```{r}
+head(cars_data)
+```
+
+### Summary statistics
+
+```{r}
+summary(cars_data)
+```
+
+------------------------------------------------------------------------
+
+# 3. dplyr Exploration
+
+## **Question 1:**
+
+### Which 5 cars are the most expensive?
+
+```{r}
+cars_data |>
+  select(brand, model, `price (eur)`) |>
+  arrange(desc(`price (eur)`)) |>
+  head(5)
+```
+
+------------------------------------------------------------------------
+
+## **Question 2:**
+
+### What is the average price per fuel type?
+
+```{r}
+cars_data |>
+  group_by(fuel) |>
+  summarise(avg_price = mean(`price (eur)`, na.rm = TRUE))
+```
+
+------------------------------------------------------------------------
+
+## **Question 3:**
+
+### Which cars have mileage higher than 150,000 km?
+
+```{r}
+cars_data |>
+  filter(`mileage (kms)` > 150000) |>
+  select(brand, model, `mileage (kms)`, year)
+```
+
+------------------------------------------------------------------------
+
+## **Question 4:**
+
+### Create a new column showing price per 1,000 km of mileage
+
+```{r}
+cars_data |>
+  mutate(price_per_1000km = `price (eur)` / (`mileage (kms)` / 1000)) |>
+  select(brand, model, `price (eur)`, `mileage (kms)`, price_per_1000km)
+```
+
+------------------------------------------------------------------------
+
+## **Question 5:**
+
+### Which 10 newest cars (highest year) are available?
+
+```{r}
+cars_data |>
+  arrange(desc(year)) |>
+  select(brand, model, year, `price (eur)`) |>
+  head(10)
+```
+
+------------------------------------------------------------------------
