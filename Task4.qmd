@@ -1,0 +1,95 @@
+---
+title: "Task 4 – Toolkit for Used Car Market Barcelona"
+author: "Simona Slámová"
+date: "2025-12-2"
+format: html
+---
+
+```{r}
+library(dplyr)
+library(readr)
+```
+
+## 4.1 Greeting function
+
+```{r}
+welcome_to_my_universe <- function(your_name) {
+cat("--------------------------------------------\n")
+cat("Analysis Toolkit – Barcelona Used Car Market\n")
+cat("Prepared by:", your_name, "\n")
+cat("--------------------------------------------\n\n")
+}
+
+welcome_to_my_universe("Simona Slámová")
+
+```
+
+## 4.2 Loading and inspecting function
+
+```{r}
+load_and_inspect <- function(file_path) {
+
+data <- read_csv(file_path)
+
+cat("--- Data Loaded Successfully:", file_path, "---\n\n")
+
+cat("---- STRUCTURE ----\n")
+print(glimpse(data))
+
+cat("\n---- FIRST 6 ROWS ----\n")
+print(head(data))
+
+return(data)
+}
+
+cars_data <- load_and_inspect("used_cars_data.csv")
+
+```
+
+## 4.3 Query function
+
+```{r}
+filter_by_mileage <- function(data, min_km) {
+
+result <- data |>
+filter(`mileage (kms)` > min_km) |>
+select(brand, model, year, `mileage (kms)`, `price (eur)`)
+
+return(result)
+}
+
+# NOW CALL THE FUNCTION
+
+cars_over_150k <- filter_by_mileage(cars_data, 150000)
+cars_over_150k
+
+```
+
+## 4.4 Reporting function
+
+```{r}
+generate_report <- function(data, brand_name) {
+
+brand_data <- data |>
+filter(brand == brand_name)
+
+avg_price <- mean(brand_data$`price (eur)`, na.rm = TRUE)
+max_price <- max(brand_data$`price (eur)`, na.rm = TRUE)
+avg_mileage <- mean(brand_data$`mileage (kms)`, na.rm = TRUE)
+car_count <- nrow(brand_data)
+
+cat("--------------------------------------------\n")
+cat("REPORT FOR BRAND:", brand_name, "\n")
+cat("--------------------------------------------\n")
+cat("Number of Listings:", car_count, "\n")
+cat("Average Price (EUR):", round(avg_price, 2), "\n")
+cat("Maximum Price (EUR):", max_price, "\n")
+cat("Average Mileage (km):", round(avg_mileage, 2), "\n")
+cat("--------------------------------------------\n\n")
+}
+
+generate_report(cars_data, "Audi")
+generate_report(cars_data, "BMW")
+generate_report(cars_data, "SEAT")
+
+```
