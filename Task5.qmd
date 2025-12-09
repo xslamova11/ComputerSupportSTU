@@ -1,0 +1,74 @@
+---
+title: "Task 5 – Visualising the Used Car Market in Barcelona"
+author: "Simona Slámová"
+date: "2025-11-27"
+format: html
+---
+
+```{r}
+library(dplyr)
+library(readr)
+library(ggplot2)
+cars_data <- read_csv("used_cars_data.csv")
+```
+
+## 5.1 Histogram – Price Distribution
+
+```{r}
+cars_data$price_num <- as.numeric(gsub("[^0-9]", "", cars_data$`price (eur)`))
+
+hist(cars_data$price_num,
+     main = "Distribution of Car Prices in Barcelona",
+     xlab = "Price (EUR)",
+     col = "lightblue",
+     border = "white")
+```
+
+## 5.2 Scatter Plot – Price vs Mileage
+
+```{r}
+ggplot(cars_data, aes(x = `mileage (kms)`, y = `price (eur)`)) +
+  geom_point(alpha = 0.7, size = 2, colour = "blue") +
+  geom_smooth(method = "lm", colour = "gray") +
+  labs(
+    title = "Price vs Mileage of Used Cars in Barcelona",
+    subtitle = "Relationship between mileage and price",
+    x = "Mileage (km)",
+    y = "Price (EUR)"
+  ) +
+  theme_minimal()
+```
+
+## 5.3 Boxplot – Price by Fuel Type
+
+```{r}
+ggplot(cars_data, aes(x = fuel, y = `price (eur)`, fill = fuel)) +
+  geom_boxplot() +
+  labs(
+    title = "Car Price Comparison by Fuel Type",
+    x = "Fuel Type",
+    y = "Price (EUR)"
+  ) +
+  theme_light() +
+  theme(legend.position = "none")
+
+```
+
+## 5.4 Faceted Histogram – Price by Brand
+
+```{r}
+ggplot(cars_data, aes(x = price_num)) +
+  geom_histogram(bins = 15, fill = "coral", color = "black") +
+  facet_wrap(~ brand) +
+  labs(
+    title = "Distribution of Prices by Car Brand",
+    x = "Price (EUR)",
+    y = "Count"
+  )
+```
+
+## 5.5 Save Plot
+
+```{r}
+ggsave("my_universe_plot.png", width = 8, height = 6)
+```
